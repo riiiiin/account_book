@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1006177549674",
+    "project_id": "my-easy-tutorial-12101921",
+    "storage_bucket": "my-easy-tutorial-12101921.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006177549674:android:112dbfbcb32b2a11a43913",
+        "android_client_info": {
+          "package_name": "com.example.firebase_sample"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5so2Tmm4NQZhSqicT7p9di2TIJ5stQNg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
