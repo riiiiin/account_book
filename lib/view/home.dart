@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-
-import '../components/footer.dart';
-import '../firebase_options.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -33,41 +29,40 @@ class _HomeState extends State<Home> {
           children: [
             Expanded(
               child: Container(
-                height: double.infinity,
-                alignment: Alignment.topCenter,
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                    .collection('dream')
-                    .orderBy('createdAt')
-                    .snapshots(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return const Text('エラーが発生しました。');
-                    }
-                    if (!snapshot.hasData) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    final list = snapshot.requireData.docs
-                      .map<String>((DocumentSnapshot document) {
-                        final documentData = document.data()! as Map<String, dynamic>;
+                  height: double.infinity,
+                  alignment: Alignment.topCenter,
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('dream')
+                        .orderBy('createdAt')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return const Text('エラーが発生しました。');
+                      }
+                      if (!snapshot.hasData) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      final list = snapshot.requireData.docs
+                          .map<String>((DocumentSnapshot document) {
+                        final documentData =
+                            document.data()! as Map<String, dynamic>;
                         return documentData['content']! as String;
                       }).toList();
-                    final reverseList = list.reversed.toList();
-                    return ListView.builder(
-                      itemCount: reverseList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Center(
-                          child: Text(
-                            reverseList[index],
-                            style: const TextStyle(fontSize: 20),
-                          ),
-                        );
-                      },
-                    );
-                  },
-
-                )
-              ),
+                      final reverseList = list.reversed.toList();
+                      return ListView.builder(
+                        itemCount: reverseList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Center(
+                            child: Text(
+                              reverseList[index],
+                              style: const TextStyle(fontSize: 20),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  )),
             ),
             // Row(
             //   children: [
@@ -99,4 +94,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
