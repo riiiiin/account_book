@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_sample/view/login.dart';
@@ -23,22 +22,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // スプラッシュ画面などに書き換えても良い
-            return SizedBox();
-          }
-          if (snapshot.hasData) {
-            // User が null でなない、つまりサインイン済みのホーム画面へ
-            return MyWidget();
-          }
-          // User が null である、つまり未サインインのサインイン画面へ
-          return LoginPage();
-        },
-      )
-    );
+        home: StreamBuilder(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // スプラッシュ画面などに書き換えても良い
+          return const SizedBox();
+        }
+        if (snapshot.hasData) {
+          // User が null でなない、つまりサインイン済みのホーム画面へ
+          return const MyWidget();
+        }
+        // User が null である、つまり未サインインのサインイン画面へ
+        return const LoginPage();
+      },
+    ));
   }
 }
 
@@ -66,7 +64,6 @@ class _MyWidgetState extends State<MyWidget> {
           bottomNavigationBar: Footer(viewCtrl: viewCtrl?.viewSink),
         ));
   }
-
 
   @override
   void initState() {

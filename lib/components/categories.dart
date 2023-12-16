@@ -5,7 +5,9 @@ class Categories extends StatefulWidget {
   final String uid;
   final Function selectedCategory;
 
-  const Categories({Key? key, required this.uid, required this.selectedCategory}) : super(key: key);
+  const Categories(
+      {Key? key, required this.uid, required this.selectedCategory})
+      : super(key: key);
 
   @override
   State<Categories> createState() => _CategoriesState();
@@ -19,9 +21,9 @@ class _CategoriesState extends State<Categories> {
     return Container(
       child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
-          .collection('users')
-          .doc(widget.uid)
-          .snapshots(),
+            .collection('users')
+            .doc(widget.uid)
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text('エラーが発生しました。');
@@ -29,14 +31,17 @@ class _CategoriesState extends State<Categories> {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
-          final lists = snapshot.requireData.data()?['categories'].cast<String>().toList();
+          final lists = snapshot.requireData
+              .data()?['categories']
+              .cast<String>()
+              .toList();
           return DropdownButton(
             items: lists.map<DropdownMenuItem<String>>((String list) {
-            return DropdownMenuItem(
-              value: list,
-              child: Text(list),
-            );
-          }).toList(),
+              return DropdownMenuItem(
+                value: list,
+                child: Text(list),
+              );
+            }).toList(),
             value: isSelectedValue,
             onChanged: (String? value) {
               setState(() {
@@ -46,7 +51,6 @@ class _CategoriesState extends State<Categories> {
             },
           );
         },
-
       ),
     );
   }

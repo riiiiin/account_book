@@ -3,7 +3,7 @@ import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
 class DatePickera extends StatefulWidget {
   final Function selectedDate;
-  const DatePickera({ Key? key, required this.selectedDate }) : super(key: key);
+  const DatePickera({Key? key, required this.selectedDate}) : super(key: key);
 
   @override
   State<DatePickera> createState() => _DatePickeraState();
@@ -38,8 +38,8 @@ class _DatePickeraState extends State<DatePickera> {
             );
           },
           child: Text(
-              selectedDate.toString(),
-              style: TextStyle(color: Colors.blue),
+            selectedDate.toString(),
+            style: const TextStyle(color: Colors.blue),
           ),
         ),
       ],

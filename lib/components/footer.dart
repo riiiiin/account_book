@@ -5,14 +5,13 @@ int itemIndex = 0;
 class Footer extends StatefulWidget {
   final Sink<int>? viewCtrl;
 
-  Footer({Key? key, required this.viewCtrl}) : super(key: key);
+  const Footer({Key? key, required this.viewCtrl}) : super(key: key);
 
   @override
   _Footer createState() => _Footer();
 }
 
 class _Footer extends State<Footer> {
-
   int pageIndex = 0;
 
   navigationItem() {
@@ -31,11 +30,11 @@ class _Footer extends State<Footer> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      currentIndex: pageIndex, 
-      onTap: (_pageIndex) {
-        pageIndex = _pageIndex;
-        widget.viewCtrl?.add(_pageIndex);
-      }, 
+      currentIndex: pageIndex,
+      onTap: (pageIndex) {
+        pageIndex = pageIndex;
+        widget.viewCtrl?.add(pageIndex);
+      },
       items: navigationItem(),
     );
   }
