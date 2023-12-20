@@ -39,6 +39,7 @@ dependencies:
   cloud_firestore: ^4.13.5
   firebase_auth: ^4.15.2
   flutter_datetime_picker_plus: ^2.1.0
+  storybook_flutter: ^0.14.0
 
 dev_dependencies:
   flutter_test:
