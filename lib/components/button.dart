@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 
+enum ButtonSize {
+  small,
+  large,
+}
+
 class MyButton extends StatelessWidget {
-  final double width;
-  final double height;
+  final size;
   final String text;
   final VoidCallback? onPressed;
 
   // コンストラクタで引数を受け取る
-  const MyButton({super.key, 
-    required this.width,
-    required this.height,
+  const MyButton({
+    super.key,
+    required this.size,
     required this.text,
     this.onPressed,
   });
@@ -17,8 +21,8 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: width,
-        height: height,
+        width: size == ButtonSize.small ? 135 : 328,
+        height: 56,
         child: ElevatedButton(
           onPressed: onPressed,
           style: ButtonStyle(

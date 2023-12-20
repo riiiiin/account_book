@@ -9,11 +9,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) => Storybook(
         stories: [
           Story(
-            name: 'Screens/MyHomePage',
-            description: 'Demo Counter app with about dialog.',
+            name: 'Components/Button',
             builder: (context) => MyButton(
-              width: 328,
-              height: 56,
+              size: 'large',
               onPressed: () => print('Button Pressed!'),
               text: 'Button',
             ),
