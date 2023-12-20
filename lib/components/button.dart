@@ -1,3 +1,4 @@
+import 'package:firebase_sample/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 enum ButtonSize {
@@ -29,7 +30,7 @@ class MyButton extends StatelessWidget {
             foregroundColor:
                 MaterialStateProperty.all<Color>(Colors.transparent),
             backgroundColor:
-                MaterialStateProperty.all<Color>(const Color(0xFF373a4d)),
+                MaterialStateProperty.all<Color>(UniqueColors['primaryColor']!),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(2.0),
