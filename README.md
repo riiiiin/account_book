@@ -121,11 +121,12 @@ income: [
 
 ## その他
 
-lint, formatコード
+開発によく使うコマンド
 
 ```
-    dart fix --apply lib
-    dart format lib
+    dart fix --apply lib    //lint
+    dart format lib         //format
+    flutter run -t storybook/main.dart -d chrome    //storybook
 ```
 
 環境構築
@@ -133,3 +134,5 @@ lint, formatコード
 ```
     flutter pub get
 ```
+firebase_app_id_file.jsonをiosフォルダ配下に
+firebase_xxxxx_android.imlをandroidフォルダ配下に
