@@ -1,5 +1,6 @@
 import 'package:firebase_sample/view/calendar.dart';
 import 'package:firebase_sample/view/input.dart';
+import 'package:firebase_sample/view/setting.dart';
 import 'package:flutter/material.dart';
 
 class Views extends StatefulWidget {
@@ -33,6 +34,7 @@ class _Views extends State<Views> {
       children: const [
         Input(),
         Calendar(),
+        Setting(),
       ],
     );
   }
