@@ -7,13 +7,14 @@ import 'components/footer.dart';
 import 'firebase_options.dart';
 import 'route/view-ctrl-bloc.dart';
 import 'route/views.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  initializeDateFormatting('ja').then((_) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
