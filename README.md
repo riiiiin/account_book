@@ -48,6 +48,7 @@ user: [
     uid: [
         userInfo: {
             name,
+            email
         },
         shared: [ 
             userA, 

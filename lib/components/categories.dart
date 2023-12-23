@@ -21,7 +21,7 @@ class _CategoriesState extends State<Categories> {
     return Container(
       child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
-            .collection('users')
+            .collection('categories')
             .doc(widget.uid)
             .snapshots(),
         builder: (context, snapshot) {
@@ -31,10 +31,8 @@ class _CategoriesState extends State<Categories> {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
-          final lists = snapshot.requireData
-              .data()?['categories']
-              .cast<String>()
-              .toList();
+          final lists =
+              snapshot.requireData.data()?['spendings'].cast<String>().toList();
           return DropdownButton(
             items: lists.map<DropdownMenuItem<String>>((String list) {
               return DropdownMenuItem(
