@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_sample/main.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../resources/auth_methods.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,9 +12,43 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String infoText = '';
-
   String email = '';
   String password = '';
+  String name = '';
+
+  void signUpUser() async {
+    String res = await AuthMethods()
+        .signUpUser(email: email, password: password, name: name);
+    if (res != 'success') {
+      setState(() {
+        infoText = "登録に失敗しました：$res";
+      });
+    } else {
+      await Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) {
+          return const MyWidget();
+        }),
+      );
+    }
+  }
+
+  void loginUser() async {
+    String res = await AuthMethods().loginUser(
+      email: email,
+      password: password,
+    );
+    if (res != 'success') {
+      setState(() {
+        infoText = "ログインに失敗しました：$res";
+      });
+    } else {
+      await Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) {
+          return const MyWidget();
+        }),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +59,15 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              //メールアドレス
+              TextFormField(
+                decoration: const InputDecoration(labelText: '名前'),
+                onChanged: (String value) {
+                  setState(() {
+                    name = value;
+                  });
+                },
+              ),
               //メールアドレス
               TextFormField(
                 decoration: const InputDecoration(labelText: 'メールアドレス'),
@@ -52,76 +95,13 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   child: ElevatedButton(
                       child: const Text('ユーザー登録'),
-                      onPressed: () async {
-                        try {
-                          final FirebaseAuth auth = FirebaseAuth.instance;
-                          await auth
-                              .createUserWithEmailAndPassword(
-                                email: email,
-                                password: password,
-                              )
-                              .then((currentUser) => FirebaseFirestore.instance
-                                      .collection('users')
-                                      .doc(currentUser.user?.uid)
-                                      .set({
-                                    'userInfo': {
-                                      "uid": currentUser.user?.uid,
-                                      "email": email,
-                                    },
-                                    'categories': [
-                                      '食費',
-                                      '外食費',
-                                      '交通費',
-                                      '衣服',
-                                      '交際費',
-                                      '趣味',
-                                      'その他',
-                                    ],
-                                    'spendings': [],
-                                    'income': [],
-                                  }));
-                          await Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) {
-                              return const MyWidget();
-                            }),
-                          );
-                        } catch (e) {
-                          if (mounted) {
-                            setState(() {
-                              infoText = "登録に失敗しました：${e.toString()}";
-                            });
-                          }
-                        }
-                      })),
+                      onPressed: () => signUpUser())),
               const SizedBox(height: 8),
               SizedBox(
                 width: double.infinity,
                 //ログイン
                 child: OutlinedButton(
-                  child: const Text('ログイン'),
-                  onPressed: () async {
-                    try {
-                      // メール/パスワードでログイン
-                      final FirebaseAuth auth = FirebaseAuth.instance;
-                      await auth.signInWithEmailAndPassword(
-                        email: email,
-                        password: password,
-                      );
-                      // ログインに成功した場合
-                      // チャット画面に遷移＋ログイン画面を破棄
-                      await Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) {
-                          return const MyWidget();
-                        }),
-                      );
-                    } catch (e) {
-                      // ログインに失敗した場合
-                      setState(() {
-                        infoText = "ログインに失敗しました：${e.toString()}";
-                      });
-                    }
-                  },
-                ),
+                    child: const Text('ログイン'), onPressed: () => loginUser()),
               )
             ],
           ),
